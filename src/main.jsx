@@ -7,11 +7,11 @@ import { EmployeeProvider } from './context/EmployeeContext';
 
 ReactDOM.render(
   <React.StrictMode>
-    <EmployeeProvider>
-      <Router>
-        <App />
-      </Router>
-    </EmployeeProvider>
+    <Router>
+      {/* <EmployeeProvider> */}
+      <App />
+      {/* </EmployeeProvider> */}
+    </Router>
   </React.StrictMode>,
   document.getElementById('root')
 );

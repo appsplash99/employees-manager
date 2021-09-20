@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import './App.css';
 import { Routes, Route, Link } from 'react-router-dom';
 import { Manager } from './components/Manager';
+import { EMPLOYEES } from './db';
 import { AllEmployees } from './components/AllEmployees';
-
 /**
  * part 1:
  * 1. render table of employees
@@ -19,7 +19,7 @@ function App() {
     filterCityStr: '',
     filterRoleStr: '',
   });
-  const [cityStr, setCityStr] = useState('');
+  const [empArr, setEmpArr] = useState(EMPLOYEES);
 
   return (
     <div
@@ -43,28 +43,32 @@ function App() {
           ? 'no role filtered'
           : initialState.filterRoleStr}
       </div>
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <AllEmployees
-              cityStr={cityStr}
-              setCityStr={setCityStr}
-              initialState={initialState}
-              setInitialState={setInitialState}
-            />
-          }
-        />
-        <Route
-          path="/manager/:id"
-          element={
-            <Manager
-              initialState={initialState}
-              setInitialState={setInitialState}
-            />
-          }
-        />
-      </Routes>
+      {initialState && (
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <AllEmployees
+                initialState={initialState}
+                setInitialState={setInitialState}
+                empArr={empArr}
+                setEmpArr={setEmpArr}
+              />
+            }
+          />
+          <Route
+            path="/manager/:id"
+            element={
+              <Manager
+                initialState={initialState}
+                setInitialState={setInitialState}
+                empArr={empArr}
+                setEmpArr={setEmpArr}
+              />
+            }
+          />
+        </Routes>
+      )}
     </div>
   );
 }

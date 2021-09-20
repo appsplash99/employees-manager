@@ -2,16 +2,16 @@ import React from 'react';
 import { useParams } from 'react-router';
 import { EMPLOYEES } from '../db';
 
-export const Manager = () => {
+export const Manager = ({ empArr }) => {
   const { id: currManagerID } = useParams();
 
-  const currManager = EMPLOYEES?.find(
+  const currManager = empArr?.find(
     (empObj) => empObj.id === Number(currManagerID)
   );
 
   const managersWorkers =
     currManager &&
-    EMPLOYEES.filter((empObj) => empObj.reports_to === currManager?.id);
+    empArr.filter((empObj) => empObj.reports_to === currManager?.id);
 
   return (
     <div>
@@ -23,15 +23,17 @@ export const Manager = () => {
           <th>City</th>
         </tr>
 
-        {currManager &&
-          managersWorkers.length > 0 &&
-          managersWorkers.map((empObj) => (
-            <tr key={empObj.id}>
-              <td>{empObj.name}</td>
-              <td>{empObj.role}</td>
-              <td>{empObj.city}</td>
-            </tr>
-          ))}
+        <tbody>
+          {currManager &&
+            managersWorkers.length > 0 &&
+            managersWorkers.map((empObj) => (
+              <tr key={empObj.id}>
+                <td>{empObj.name}</td>
+                <td>{empObj.role}</td>
+                <td>{empObj.city}</td>
+              </tr>
+            ))}
+        </tbody>
       </table>
     </div>
   );

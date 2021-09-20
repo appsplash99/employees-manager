@@ -1,12 +1,18 @@
 import React, { createContext, useContext, useState } from 'react';
 
-const EmpContext = createContext();
+const empContext = createContext();
 
-export const EmployeeProvider = ({ childern }) => {
+const EmployeeProvider = ({ childern }) => {
   const [filterObj, setFilterObj] = useState({
     filterCity: false,
     filterRole: false,
   });
 
-  return <EmpContext.Provider value={{}}>{childern}</EmpContext.Provider>;
+  return (
+    <empContext.Provider value={{ filterObj, setFilterObj }}>
+      {childern}
+    </empContext.Provider>
+  );
 };
+
+export { EmployeeProvider };
